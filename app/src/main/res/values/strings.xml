@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Login</string>
+    <string name="EmailLabel">Email</string>
+    <string name="LoginHeading">Login</string>
+    <string name="mobileNumber">Mobile Number\n</string>
+    <string name="HomePagetitle">Welcome to the Home Page</string>
+    <string name="DeteleUSer">Delete my Account</string>
+    <string name="btnsubtxt">"Submit "</string>
+    <string name="Register">\"Register\"</string>
+    <string name="Name">name</string>
+
+</resources>
