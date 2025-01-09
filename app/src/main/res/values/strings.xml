@@ -8,5 +8,6 @@
     <string name="btnsubtxt">"Submit "</string>
     <string name="Register">\"Register\"</string>
     <string name="Name">name</string>
+    <string name="dog_content_description">xxxx</string>
 
 </resources>

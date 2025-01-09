@@ -1,6 +1,6 @@
 package com.example.login.presentation
 
-import android.widget.Toast
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -10,6 +10,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -39,9 +40,9 @@ fun HomeScreen(navController: NavController) {
         Text(
             text = stringResource(id = R.string.HomePagetitle),
             style = TextStyle(
-                fontFamily = FontFamily.Default,
-                fontWeight = FontWeight.Normal,
-                fontSize = 22.sp)
+                fontFamily = FontFamily.Default, fontWeight = FontWeight.Normal,
+                fontSize = 22.sp
+            )
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -57,14 +58,16 @@ fun HomeScreen(navController: NavController) {
         Button(
             onClick = {
                 scope.launch {
-                    // Clear DataStore and navigate back to Login screen
+
                     dataStoreManger.clearDataStore()
-                    navController.navigate("loginScreen") {
+                    navController.navigate("registrationPage") {
 
                     }
                 }
-            },
-            modifier = Modifier.fillMaxWidth()
+            }, modifier =
+
+
+            Modifier.fillMaxWidth()
         ) {
             Text(stringResource(R.string.DeteleUSer))
         }
@@ -72,16 +75,16 @@ fun HomeScreen(navController: NavController) {
         Button(
             onClick = {
                 scope.launch {
-                    // Clear DataStore and navigate back to Login screen
 
                     navController.navigate("loginScreen") {
                         popUpTo("homeScreen") { inclusive = true }
                     }
                 }
-            },
-            modifier = Modifier.fillMaxWidth()
+            }, modifier = Modifier.fillMaxWidth()
         ) {
             Text("Logout")
         }
+
     }
+
 }

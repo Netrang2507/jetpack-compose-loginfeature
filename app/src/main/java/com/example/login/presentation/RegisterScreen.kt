@@ -11,6 +11,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -44,6 +45,7 @@ fun RegistrationScreen(navController: NavController) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()  // Create coroutine scope
     val dataStoreManger = DataStoreManger(context)
+    var isRegistrationCompleted by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -116,7 +118,7 @@ fun RegistrationScreen(navController: NavController) {
                             )
                         )
 
-                        navController.navigate("loginscreen")
+                        isRegistrationCompleted = true
 
                     }
                 }
@@ -136,5 +138,12 @@ fun RegistrationScreen(navController: NavController) {
         ) {
             Text(stringResource(id = R.string.LoginHeading))
         }
+        if (isRegistrationCompleted) {
+            LaunchedEffect(isRegistrationCompleted) {
+                navController.navigate("loginScreen")
+            }
+        }
     }
 }
+
+

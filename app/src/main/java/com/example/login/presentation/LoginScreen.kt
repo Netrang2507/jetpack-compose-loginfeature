@@ -34,8 +34,8 @@ fun LoginScreen(navController: NavController) {
     val scope = rememberCoroutineScope()  // Create coroutine scope
     val dataStoreManger = DataStoreManger(context)
 
-    // Collect user data from DataStore
-    val savedUserDetails = dataStoreManger.getFromDataStore().collectAsState(initial = UserDetails("", "", "", ""))
+    val savedUserDetails =
+        dataStoreManger.getFromDataStore().collectAsState(initial = UserDetails("", "", "", ""))
 
     Column(
         modifier = Modifier
@@ -50,11 +50,11 @@ fun LoginScreen(navController: NavController) {
         // Email Field
         TextInputField(
             value = email,
-            onValueChange = {email = it},
+            onValueChange = { email = it },
             label = stringResource(id = R.string.EmailLabel),
 
 
-        )
+            )
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -78,14 +78,16 @@ fun LoginScreen(navController: NavController) {
 
                     scope.launch {
                         val savedUser = savedUserDetails.value
-                         if (savedUser.emailAddress == email && savedUser.password == password) {
-                                navController.navigate("homeScreen")
-                            } else {
-                                Toast.makeText(context, "Invalid credentials", Toast.LENGTH_SHORT)
-                                    .show()
+                        if (savedUser.emailAddress == email && savedUser.password == password) {
+                            navController.navigate("homeScreen")
+                            val isLogin: () -> Boolean = { true }
 
-                            }
+                        } else {
+                            Toast.makeText(context, "Invalid credentials", Toast.LENGTH_SHORT)
+                                .show()
+
                         }
+                    }
 
                 }
             },
@@ -107,5 +109,10 @@ fun LoginScreen(navController: NavController) {
         ) {
             Text(stringResource(id = R.string.Register))
         }
+
     }
+
 }
+
+
+
