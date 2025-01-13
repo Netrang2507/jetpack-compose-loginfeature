@@ -30,7 +30,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.login.R
 import com.example.login.model.UserDetails
+import com.example.login.presentation.component.CommonButton
 import com.example.login.presentation.component.TextInputField
+import com.example.login.utils.Constants
 import com.example.login.utils.DataStoreManger
 import kotlinx.coroutines.launch
 
@@ -55,9 +57,10 @@ fun RegistrationScreen(navController: NavController) {
     ) {
         Text(
             stringResource(id = R.string.Register), style = TextStyle(
-            fontFamily = FontFamily.Default,
-            fontWeight = FontWeight.Normal,
-            fontSize = 22.sp)
+                fontFamily = FontFamily.Default,
+                fontWeight = FontWeight.Normal,
+                fontSize = 22.sp
+            )
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -73,8 +76,8 @@ fun RegistrationScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         TextInputField(
-            value =mobileNumber,
-            onValueChange = {mobileNumber = it},
+            value = mobileNumber,
+            onValueChange = { mobileNumber = it },
             label = stringResource(id = R.string.mobileNumber)
 
         )
@@ -83,11 +86,11 @@ fun RegistrationScreen(navController: NavController) {
 
         TextInputField(
             value = email,
-            onValueChange = {email = it},
+            onValueChange = { email = it },
             label = stringResource(id = R.string.EmailLabel),
 
 
-        )
+            )
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -103,7 +106,7 @@ fun RegistrationScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        Button(
+        CommonButton(
             onClick = {
                 if (name.isEmpty() || mobileNumber.isEmpty() || email.isEmpty() || password.isEmpty()) {
                     Toast.makeText(context, "All fields must be filled", Toast.LENGTH_SHORT).show()
@@ -123,24 +126,20 @@ fun RegistrationScreen(navController: NavController) {
                     }
                 }
             },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(stringResource(id = R.string.btnsubtxt))
-        }
-        Button(
+            modifier = Modifier.fillMaxWidth(),
+            text = stringResource(id = R.string.btnsubtxt)
+        )
+
+        CommonButton(
             onClick = {
-
-                navController.navigate("loginscreen")
-
-
+                navController.navigate(Constants.loginScreen)
             },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(stringResource(id = R.string.LoginHeading))
-        }
+            modifier = Modifier.fillMaxWidth(),
+            text = stringResource(id = R.string.LoginHeading)
+        )
         if (isRegistrationCompleted) {
             LaunchedEffect(isRegistrationCompleted) {
-                navController.navigate("loginScreen")
+                navController.navigate(Constants.loginScreen)
             }
         }
     }

@@ -9,6 +9,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
 import androidx.compose.ui.res.stringResource
@@ -19,7 +20,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.login.R
+import com.example.login.presentation.component.CommonButton
+import com.example.login.utils.Constants
 import com.example.login.utils.DataStoreManger
+
 import kotlinx.coroutines.launch
 
 @Composable
@@ -36,6 +40,8 @@ fun HomeScreen(navController: NavController) {
             .fillMaxSize()
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
+        ,
+        verticalArrangement = Arrangement.Center
     ) {
         Text(
             text = stringResource(id = R.string.HomePagetitle),
@@ -53,37 +59,47 @@ fun HomeScreen(navController: NavController) {
             Text("Mobile: ${it.mobileNumber}")
             Text("Email: ${it.emailAddress}")
         }
+        Spacer(modifier = Modifier.height(6.dp))
 
+        CommonButton(
+            onClick = {
+                navController.navigate(Constants.Security)
 
-        Button(
+            },
+            modifier = Modifier.fillMaxWidth()
+                .height(40.dp),
+            text = stringResource(id = R.string.Edit)
+        )
+        Spacer(modifier = Modifier.height(6.dp))
+
+        CommonButton(
             onClick = {
                 scope.launch {
 
                     dataStoreManger.clearDataStore()
-                    navController.navigate("registrationPage") {
+                    navController.navigate(Constants.registrationPage) {
 
                     }
                 }
-            }, modifier =
+            },
+            modifier =
+            Modifier.fillMaxWidth(),
+            text = stringResource(R.string.DeteleUSer)
+        )
 
-
-            Modifier.fillMaxWidth()
-        ) {
-            Text(stringResource(R.string.DeteleUSer))
-        }
         Spacer(modifier = Modifier.height(6.dp))
-        Button(
+        CommonButton(
             onClick = {
                 scope.launch {
 
-                    navController.navigate("loginScreen") {
-                        popUpTo("homeScreen") { inclusive = true }
+                    navController.navigate(Constants.loginScreen) {
+                        popUpTo(Constants.HomeScreen) { inclusive = true }
                     }
                 }
-            }, modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Logout")
-        }
+            }, modifier = Modifier.fillMaxWidth(),
+            containerColor = Color.Red,
+            text = stringResource(id = R.string.Logout)
+        )
 
     }
 

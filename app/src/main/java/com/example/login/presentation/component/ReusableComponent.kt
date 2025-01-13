@@ -12,6 +12,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -20,17 +21,18 @@ fun TextInputField(
     onValueChange: (String) -> Unit,
     label: String,
 
-) {
 
-        OutlinedTextField(
+    ) {
+
+    OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
         label = { Text(text = label) },
         modifier = Modifier.fillMaxWidth(),
 
 
-    )
-    }
+        )
+}
 
 
 @Composable
@@ -38,21 +40,32 @@ fun CommonButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    containerColor: Color = Color.Blue,
-    contentColor: Color = Color.White,
-    paddingHorizontal: Int = 120,
-    paddingVertical: Int = 0
+    containerColor: Color = Color.Blue,  // Default color, you can override if needed
+    contentColor: Color = Color.White
+
 ) {
     Button(
-        onClick = onClick,
-        colors = ButtonDefaults.buttonColors(
-            containerColor = containerColor,
-            contentColor = contentColor
-        ),
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = paddingHorizontal.dp, vertical = paddingVertical.dp)
+        onClick = onClick, colors = ButtonDefaults.buttonColors(
+            containerColor = containerColor, contentColor = contentColor
+        ), modifier = modifier
+
     ) {
         Text(text)
     }
+}
+
+@Composable
+fun TextEditField(
+    value: String, onValueChange: (String) -> Unit, label: String, placeholder: String
+
+) {
+
+    OutlinedTextField(value = value,
+        onValueChange = onValueChange,
+        label = { Text(text = label) },
+        modifier = Modifier.fillMaxWidth(),
+        placeholder = { Text(text = placeholder) }
+
+
+    )
 }

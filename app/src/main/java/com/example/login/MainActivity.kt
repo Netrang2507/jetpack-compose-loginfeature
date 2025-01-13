@@ -1,35 +1,30 @@
 package com.example.login
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.datastore.dataStore
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.login.presentation.FirstScreen
+import com.example.login.presentation.navigationbar.NavigationDrawer
+import com.example.login.presentation.EditScreen
+import com.example.login.presentation.component.FirstScreen
 import com.example.login.presentation.HomeScreen
+import com.example.login.presentation.navigationbar.InfoScreen
 import com.example.login.presentation.LoginScreen
 
 import com.example.login.presentation.RegistrationScreen
+import com.example.login.presentation.navigationbar.SettingScreen
+
+import com.example.login.presentation.securityScreen
 import com.example.login.ui.theme.LoginTheme
 import com.example.login.utils.Constants
 import com.example.login.utils.DataStoreManger
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 
 
 class MainActivity : ComponentActivity() {
@@ -45,32 +40,27 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
 @Composable
 fun MyApp() {
     val navController = rememberNavController()
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
-    val dataStoreManger = DataStoreManger(context )
+    val dataStoreManger = DataStoreManger(context)
     val userDetails = dataStoreManger.getFromDataStore().collectAsState(null)
+
     LaunchedEffect(userDetails.value) {
         if (userDetails.value?.emailAddress?.isNotEmpty() == true) {
-
-            navController.navigate("homeScreen") {
-
-            }
+            navController.navigate(Constants.HomeScreen)
         }
     }
 
-    if (userDetails.value?.emailAddress?.isNotEmpty()==true){
-       navController.navigate("homeScreen")
-   }
+
 
     NavHost(
         navController = navController,
-        startDestination ="firstScreen",
+        startDestination = Constants.FirstScreen
     ) {
-        composable("firstScreen") {
+        composable(Constants.FirstScreen) {
             FirstScreen(navController = navController)
         }
         composable(Constants.registrationPage) {
@@ -80,8 +70,31 @@ fun MyApp() {
             LoginScreen(navController = navController)
         }
         composable(Constants.HomeScreen) {
-            HomeScreen(navController = navController)
+            NavigationDrawer(navController = navController) {
+                HomeScreen(navController = navController)
+            }
+        }
+        composable(Constants.infoScreen) {
+            NavigationDrawer(navController = navController) {
+                InfoScreen(navController = navController)
+            }
+        }
+        composable(Constants.Security) {
+            NavigationDrawer(navController = navController) {
+                securityScreen(navController = navController)
+            }
+        }
+        composable(Constants.Edit) {
+            NavigationDrawer(navController = navController) {
+                EditScreen(navController = navController)
+            }
+        }
+        composable(Constants.Setting) {
+            NavigationDrawer(navController = navController) {
+                SettingScreen(navController = navController)
+            }
         }
     }
 }
+
 

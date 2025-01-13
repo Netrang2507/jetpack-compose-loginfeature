@@ -9,6 +9,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.login.model.UserDetails
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 
@@ -34,13 +35,15 @@ class DataStoreManger(val context: Context) {
 
 
 
-    fun getFromDataStore() = context.preferenceDataStore.data.map {
-        UserDetails(
-            emailAddress = it[email] ?: "",
-            password = it[password] ?: "",
-            mobileNumber = it[mobileNumber] ?: "",
-            name = it[nameUser] ?: ""
-        )
+    fun getFromDataStore(): Flow<UserDetails> {
+        return context.preferenceDataStore.data.map { preferences ->
+            UserDetails(
+                emailAddress = preferences[email] ?: "",
+                password = preferences[password] ?: "",
+                mobileNumber = preferences[mobileNumber] ?: "",
+                name = preferences[nameUser] ?: ""
+            )
+        }
     }
     suspend fun clearDataStore() = context.preferenceDataStore.edit {
         it.clear()

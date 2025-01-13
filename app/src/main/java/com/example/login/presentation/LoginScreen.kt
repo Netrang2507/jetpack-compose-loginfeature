@@ -24,6 +24,8 @@ import androidx.compose.ui.res.stringResource
 import com.example.login.model.UserDetails
 import com.example.login.presentation.component.TextInputField
 import com.example.login.R
+import com.example.login.presentation.component.CommonButton
+import com.example.login.utils.Constants
 
 @Composable
 fun LoginScreen(navController: NavController) {
@@ -62,7 +64,7 @@ fun LoginScreen(navController: NavController) {
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Password") },
+            label = { Text(stringResource(id = R.string.Password)) },
             modifier = Modifier.fillMaxWidth(),
             visualTransformation = PasswordVisualTransformation()
         )
@@ -70,7 +72,7 @@ fun LoginScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(24.dp))
 
         // Login Button
-        Button(
+        CommonButton(
             onClick = {
                 if (email.isEmpty() || password.isEmpty()) {
                     Toast.makeText(context, "All fields must be filled", Toast.LENGTH_SHORT).show()
@@ -79,7 +81,7 @@ fun LoginScreen(navController: NavController) {
                     scope.launch {
                         val savedUser = savedUserDetails.value
                         if (savedUser.emailAddress == email && savedUser.password == password) {
-                            navController.navigate("homeScreen")
+                            navController.navigate(Constants.HomeScreen)
                             val isLogin: () -> Boolean = { true }
 
                         } else {
@@ -91,25 +93,22 @@ fun LoginScreen(navController: NavController) {
 
                 }
             },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(stringResource(id = R.string.LoginHeading))
-        }
+            modifier = Modifier.fillMaxWidth(),
+            text = stringResource(id = R.string.LoginHeading)
+        )
 
-        Button(
+        CommonButton(
             onClick = {
                 scope.launch {
 
-                    navController.navigate("registrationPage") {
+                    navController.navigate(Constants.registrationPage) {
 
                     }
                 }
             },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(stringResource(id = R.string.Register))
-        }
-
+            modifier = Modifier.fillMaxWidth(),
+            text = stringResource(id = R.string.Register)
+        )
     }
 
 }

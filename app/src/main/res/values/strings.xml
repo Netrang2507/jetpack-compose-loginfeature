@@ -9,5 +9,12 @@
     <string name="Register">\"Register\"</string>
     <string name="Name">name</string>
     <string name="dog_content_description">xxxx</string>
+    <string name="Edit">"Edit profile"\n</string>
+    <string name="UpPass">Update password</string>
+    <string name="Password">Password</string>
+    <string name="SettingScreen">Setting Screen</string>
+    <string name="info">Info</string>
+    <string name="Logout">Logout</string>
+    <string name="LoginApp">Login App\n</string>
 
 </resources>
